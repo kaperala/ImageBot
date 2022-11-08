@@ -1,15 +1,13 @@
-/* eslint-disable @typescript-eslint/typedef */
 import {
+  ApplicationCommand,
   BaseChannel,
   ChatInputCommandInteraction,
   Client,
-  CommandInteraction,
   Guild,
   GuildChannel,
   GuildMember,
   GuildTextBasedChannel,
   Message,
-  MessageReaction,
   TextChannel,
   User
 } from 'discord.js';
@@ -25,10 +23,7 @@ export default class MockDiscord {
   public message!: Message;
   public interaction!: ChatInputCommandInteraction;
 
-  private reaction!: MessageReaction;
-  private reactionUser!: User;
-
-  constructor(options) {
+  constructor(options: any) {
     this.mockClient();
     this.mockGuild();
     this.mockChannel();
@@ -41,10 +36,6 @@ export default class MockDiscord {
     this.mockInteracion(options?.command);
 
     this.mockPrototypes();
-
-    if (options?.reaction) {
-      this.mockReactionUser(options.reaction?.user?.id);
-    }
 
     this.guild.channels.cache.set(this.textChannel.id, this.textChannel);
     this.client.channels.cache.set(this.textChannel.id, this.textChannel);
@@ -83,16 +74,8 @@ export default class MockDiscord {
     return this.message;
   }
 
-  public getInteraction(): CommandInteraction {
+  public getInteraction(): ChatInputCommandInteraction {
     return this.interaction;
-  }
-
-  public getReaction(): MessageReaction {
-    return this.reaction;
-  }
-
-  public getReactionUser(): User {
-    return this.reactionUser;
   }
 
   private mockPrototypes() {
@@ -116,11 +99,11 @@ export default class MockDiscord {
       {
         unavailable: false,
         id: 'guild-id',
-        name: 'mocked js guild',
-        icon: 'mocked guild icon url',
-        splash: 'mocked guild splash url',
+        name: 'guild name',
+        icon: 'guild icon',
+        splash: 'aplash url',
         region: 'eu-west',
-        member_count: 42,
+        member_count: 10,
         large: false,
         features: [],
         application_id: 'application-id',
@@ -131,7 +114,7 @@ export default class MockDiscord {
         verification_level: 2,
         explicit_content_filter: 3,
         mfa_level: 8,
-        joined_at: new Date('2018-01-01').getTime(),
+        joined_at: new Date('2022-01-01').getTime(),
         owner_id: 'owner-id',
         channels: [],
         roles: [],
@@ -172,7 +155,7 @@ export default class MockDiscord {
         topic: 'topic',
         nsfw: false,
         last_message_id: '123456789',
-        lastPinTimestamp: new Date('2019-01-01').getTime(),
+        lastPinTimestamp: new Date('2022-01-01').getTime(),
         rate_limit_per_user: 0
       }
     ]);
@@ -191,19 +174,6 @@ export default class MockDiscord {
     ]);
   }
 
-  private mockReactionUser(userId): void {
-    this.reactionUser = Reflect.construct(User, [
-      this.client,
-      {
-        id: userId,
-        username: `USERNAME-${userId}`,
-        discriminator: `user#0000-${userId}`,
-        avatar: 'user avatar url',
-        bot: false
-      }
-    ]);
-  }
-
   private mockGuildMember(): void {
     this.guildMember = Reflect.construct(GuildMember, [
       this.client,
@@ -216,7 +186,7 @@ export default class MockDiscord {
         session_id: 'session-id',
         channel_id: 'channel-id',
         nick: 'nick',
-        joined_at: new Date('2020-01-01').getTime(),
+        joined_at: new Date('2022-01-01').getTime(),
         user: this.user,
         roles: []
       },
@@ -224,7 +194,7 @@ export default class MockDiscord {
     ]);
   }
 
-  private mockMessage(content): void {
+  private mockMessage(content: string): void {
     this.message = Reflect.construct(Message, [
       this.client,
       {
@@ -251,7 +221,7 @@ export default class MockDiscord {
     this.message.react = jest.fn();
   }
 
-  private mockInteracion(command): void {
+  private mockInteracion(command: ApplicationCommand): void {
     if (!command) return;
     this.interaction = Reflect.construct(ChatInputCommandInteraction, [
       this.client,

@@ -1,4 +1,7 @@
-/* eslint-disable @typescript-eslint/typedef */
+import { SlashCommandBuilder } from 'discord.js';
+import { RawApplicationCommandData } from 'discord.js/typings/rawDataTypes';
+
+import ImageCommand from '../src/commands/image';
 import MockDiscord from './mocks';
 
 export const optType = {
@@ -8,7 +11,7 @@ export const optType = {
   10: Number
 };
 
-function getNestedOptions(options) {
+function getNestedOptions(options: any) {
   return options.reduce((allOptions, option) => {
     if (!option.options) return [...allOptions, option];
     const nestedOptions = getNestedOptions(option.options);
@@ -21,7 +24,10 @@ function castToType(value: string, typeId: number) {
   return typeCaster ? typeCaster(value) : value;
 }
 
-export function getParsedCommand(stringCommand: string, commandData) {
+export function getParsedCommand(
+  stringCommand: string,
+  commandData: SlashCommandBuilder
+): RawApplicationCommandData {
   const options = getNestedOptions(commandData.options);
   const optionsIndentifiers = options.map((option) => `${option.name}:`);
   const requestedOptions = options.reduce((requestedOptions, option) => {
@@ -57,9 +63,14 @@ export function getParsedCommand(stringCommand: string, commandData) {
   const splittedCommand = stringCommand.split(' ');
   const name = splittedCommand[0].replace('/', '');
   const subcommand = splittedCommand.find((word) => optionNames.includes(word));
-  return {
+
+  const data: RawApplicationCommandData = {
     id: name,
     name,
+    application_id: 'application_id',
+    description: 'application description',
+    default_member_permissions: null,
+    version: '1.0',
     type: 1,
     options: subcommand
       ? [
@@ -71,45 +82,22 @@ export function getParsedCommand(stringCommand: string, commandData) {
         ]
       : requestedOptions
   };
+  return data;
 }
 
-export function embedContaining(content) {
-  return {
-    embeds: expect.arrayContaining([expect.objectContaining(content)]),
-    fetchReply: true
-  };
-}
-
-export function embedContainingWithoutFetchReply(content) {
-  return {
-    embeds: expect.arrayContaining([expect.objectContaining(content)])
-  };
-}
-
-export function fieldContainingValue(expectedValue) {
-  return embedContainingWithoutFetchReply({
-    fields: expect.arrayContaining([
-      expect.objectContaining({
-        value: expect.stringContaining(expectedValue)
-      })
-    ])
-  });
-}
-
-export function copy(obj) {
-  return JSON.parse(JSON.stringify(obj));
-}
-
-export function mockInteractionAndSpyReply(command) {
+export function createInteractionAndSpy(command: RawApplicationCommandData) {
   const discord = new MockDiscord({ command });
   const interaction = discord.getInteraction();
   const spy = jest.spyOn(interaction, 'editReply');
   return { interaction, spy };
 }
 
-export async function executeCommandAndSpyReply(command, content) {
-  const { interaction, spy } = mockInteractionAndSpyReply(content);
-  const CommandObject = new command(interaction);
+export async function executeCommand(
+  command: typeof ImageCommand,
+  content: RawApplicationCommandData
+) {
+  const { interaction, spy } = createInteractionAndSpy(content);
+  const CommandObject: ImageCommand = new command(interaction);
   await CommandObject.execute();
   return spy;
 }

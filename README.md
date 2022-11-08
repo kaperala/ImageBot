@@ -52,6 +52,7 @@ ImageBot is in early development, it currently has the following:
 - Description for generating the image(s). ⚠️
 - Resolution of the images to be generated.
 - Number of Images to be generated
+
 Options with ⚠️ are not optional.
 
 **Note: Discord Client ID of the user that executed the command will also be included in the API call to prevent spam and abuse.**

@@ -60,7 +60,7 @@ class ImageCommand extends BaseCommand {
       resolution:
         (this.interaction.options.getString(
           'resolution'
-        ) as CreateImageRequestSizeEnum) ?? '1024x1024',
+        ) as CreateImageRequestSizeEnum) ?? '256x256',
       responseFormat: 'b64_json',
       userID: this.interaction.user.id,
       OpenAiConfiguration: new Configuration({
