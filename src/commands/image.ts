@@ -13,7 +13,7 @@ import {
 import { GenerationConfig } from '../types/types';
 import BaseCommand from './base/BaseCommand';
 
-export const initBuilder = () => {
+export const getBuilder = () => {
   const builder = new SlashCommandBuilder();
   builder
     .setName('image')
@@ -70,12 +70,7 @@ class ImageCommand extends BaseCommand {
     return requestOptions;
   }
 
-  public async execute() {
-    await this.deferReply();
-
-    const options = this.setRequestOptions();
-
-    const openai = new OpenAIApi(options.OpenAiConfiguration);
+  private async queryAndReply(openai: OpenAIApi, options: GenerationConfig) {
     await openai
       .createImage({
         prompt: options.description,
@@ -103,6 +98,13 @@ class ImageCommand extends BaseCommand {
         );
         console.log(error);
       });
+  }
+
+  public async execute() {
+    await this.deferReply();
+    const options = this.setRequestOptions();
+    const openai = new OpenAIApi(options.OpenAiConfiguration);
+    await this.queryAndReply(openai, options);
   }
 }
 

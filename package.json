@@ -1,7 +1,7 @@
 {
   "name": "imagebot",
   "version": "1.0.0",
-  "description": "a simple Discord bot for generating images using OpenAI",
+  "description": "a simple Discord bot for generating images using OpenAIs DALL·E 2 image generation API.",
   "main": "index.js",
   "scripts": {
     "lint": "eslint . --ext .ts",
