@@ -109,6 +109,7 @@ export function mockInteractionAndSpyReply(command) {
 
 export async function executeCommandAndSpyReply(command, content) {
   const { interaction, spy } = mockInteractionAndSpyReply(content);
-  await command.execute(interaction);
+  const CommandObject = new command(interaction);
+  await CommandObject.execute();
   return spy;
 }

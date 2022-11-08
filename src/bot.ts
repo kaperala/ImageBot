@@ -14,7 +14,7 @@ class Bot {
     this.client.login(this.token);
   }
 
-  public setEvents(): void {
+  public setEventsAndListen(): void {
     Object.keys(eventsMap).forEach((key) => {
       const Event = new eventsMap[key]();
 
@@ -32,7 +32,7 @@ export default function init() {
   const client = new Client({ intents: [GatewayIntentBits.Guilds] });
   const token = process.env.DISCORD_TOKEN;
   const bot = new Bot(client, token);
-  bot.setEvents();
+  bot.setEventsAndListen();
 }
 
 init();
