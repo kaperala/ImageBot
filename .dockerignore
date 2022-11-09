@@ -1,0 +1,15 @@
+tests
+coverage
+node_modules
+jest.config.ts
+README.md
+.vscode
+.github
+.env
+.git
+.env_template
+.gitignore
+.prettierrc
+.babelrc
+.eslintignore
+.eslintrc.json
