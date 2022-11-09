@@ -1,8 +1,11 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import { RawApplicationCommandData } from 'discord.js/typings/rawDataTypes';
+import { Configuration, CreateImageRequestSizeEnum } from 'openai';
 
 import ImageCommand from '../src/commands/image';
-import MockDiscord from './mocks';
+import { GenerationConfig } from '../src/types/types';
+import MockDiscord from './DiscordMock';
+import MockOpenAi from './OpenAiMock';
 
 export const optType = {
   3: String,
@@ -92,12 +95,41 @@ export function createInteractionAndSpy(command: RawApplicationCommandData) {
   return { interaction, spy };
 }
 
+export function createOpenAi(generationConfig: GenerationConfig) {
+  const openAiConfig = generationConfig.OpenAiConfiguration;
+  const nOfImages = generationConfig.nOfImages;
+  const openAiMock = new MockOpenAi(openAiConfig, nOfImages);
+  return openAiMock.getOpenAiApi();
+}
+
+export function createGenerationConfig(
+  interaction: ChatInputCommandInteraction
+) {
+  const generationConfig: GenerationConfig = {
+    description: interaction.options.getString('description'),
+    nOfImages: interaction.options.getInteger('amount') ?? 1,
+    resolution:
+      (interaction.options.getString(
+        'resolution'
+      ) as CreateImageRequestSizeEnum) ?? '256x256',
+    responseFormat: 'b64_json',
+    userID: interaction.user.id,
+    OpenAiConfiguration: new Configuration({
+      apiKey: 'sk-apikey'
+    })
+  };
+
+  return generationConfig;
+}
+
 export async function executeCommand(
   command: typeof ImageCommand,
   content: RawApplicationCommandData
 ) {
   const { interaction, spy } = createInteractionAndSpy(content);
   const CommandObject: ImageCommand = new command(interaction);
-  await CommandObject.execute();
+  const generationConfig = createGenerationConfig(interaction);
+  const openai = createOpenAi(generationConfig);
+  await CommandObject.queryAndReply(openai, generationConfig);
   return spy;
 }
