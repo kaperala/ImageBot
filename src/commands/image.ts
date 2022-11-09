@@ -70,7 +70,7 @@ class ImageCommand extends BaseCommand {
     return requestOptions;
   }
 
-  private async queryAndReply(openai: OpenAIApi, options: GenerationConfig) {
+  public async queryAndReply(openai: OpenAIApi, options: GenerationConfig) {
     await openai
       .createImage({
         prompt: options.description,
@@ -81,7 +81,7 @@ class ImageCommand extends BaseCommand {
       })
       .then((response) => {
         this.editReply(
-          `Generated ${options.nOfImages} image(s) with the following description: "${options.description}"`
+          `Generated ${options.nOfImages} image(s) (${options.resolution}) with the following description: "${options.description}"`
         );
         //Send each image as a followUp reply.
         response.data.data.forEach((element: ImagesResponseDataInner) => {
