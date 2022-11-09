@@ -16,6 +16,17 @@ To run this bot, you need to create an .env file that includes the needed enviro
     GUILD_ID= //Guild ID of a development server, this is used to deploy the commands to only 1 server.
 
 
+## 🐬 Running with Docker
+
+Running ImageBot with Docker is very easy, you can do it with my [Docker image](https://hub.docker.com/repository/docker/kvllu/imagebot/). Note that you need to provide the environment variables with **-e** option or use your platform provider's tools to create them.
+```bash
+docker run -d \
+    --name imagebot \
+    -e DISCORD_TOKEN="discord_token" \
+    -e OPENAI_TOKEN="openai_token" \
+    -e CLIENT_ID="clientid" \
+	kvllu/imagebot
+```
 ## 🚀 Run Locally
 
 Clone the project
@@ -43,7 +54,7 @@ Start the bot
 ```
 
 
-## 📝 Features and Commands
+## 📋 Features and Commands
 
 ImageBot is in early development, it currently has the following:
 
@@ -58,10 +69,8 @@ Options with ⚠️ are not optional.
 **Note: Discord Client ID of the user that executed the command will also be included in the API call to prevent spam and abuse.**
 ## 🧪 Running Tests
 
-To run the unit tests, run the following command
+This project provides unit tests made with Jest to help with development. To run the tests, run the following command
 
 ```bash
   npm run test
 ```
-The coverage of the tests is currently low but I will be improving that.
-
