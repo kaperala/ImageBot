@@ -10,7 +10,7 @@
     "prettier-format": "prettier ./src/**/*.ts tests/*.ts --write",
     "prettier-check": "prettier ./src/**/*.ts tests/*.ts --check",
     "start": "ts-node src/bot.ts",
-    "prod": "npm run build && node ./dist/src/bot.js",
+    "prod": "npm run deploy-commands && npm run build && node ./dist/bot.js",
     "deploy-commands": "ts-node src/utils/deploy_commands.ts"
   },
   "author": "Kalle Perälä",
