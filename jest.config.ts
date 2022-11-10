@@ -5,6 +5,7 @@ const config: Config = {
   collectCoverage: true,
   preset: 'ts-jest',
   testEnvironment: 'node',
+  testPathIgnorePatterns: ['dist'],
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest'
   }
