@@ -1,5 +1,4 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
-import { RawApplicationCommandData } from 'discord.js/typings/rawDataTypes';
 import { Configuration, CreateImageRequestSizeEnum } from 'openai';
 
 import ImageCommand from '../src/commands/image';
@@ -47,7 +46,7 @@ export function getParsedCommand(
         ...requestedOptions,
         {
           name: option.name,
-          value: castToType(value, option.type),
+          value: castToType(value, option.type as number),
           type: option.type
         }
       ];
@@ -57,7 +56,7 @@ export function getParsedCommand(
       ...requestedOptions,
       {
         name: option.name,
-        value: castToType(remainder.trim(), option.type),
+        value: castToType(remainder.trim(), option.type as number),
         type: option.type
       }
     ];
