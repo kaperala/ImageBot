@@ -70,6 +70,7 @@ ImageBot is in early development, it currently has the following:
 
 #### Generating Images
 ![logo](https://i.imgur.com/XVFl4um.png)
+
 /image command with options:
 - Description for generating the image(s). ⚠️
 - Resolution of the images to be generated.
