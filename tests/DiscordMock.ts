@@ -32,8 +32,8 @@ export default class MockDiscord {
 
     this.mockUser();
     this.mockGuildMember();
-    this.mockMessage(options?.message?.content);
-    this.mockInteracion(options?.command);
+    this.mockMessage(options?.message?.content as string);
+    this.mockInteracion(options?.command as ApplicationCommand);
 
     this.mockPrototypes();
 

@@ -25,8 +25,7 @@
         "ignoreParameters": true
       }
     ],
-    "@typescript-eslint/no-misused-promises": "off",
-    "@typescript-eslint/no-unsafe-argument": "off",
+
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
@@ -61,7 +60,6 @@
     ],
     "import/no-extraneous-dependencies": "error",
     "import/no-unresolved": "off",
-    "import/no-useless-path-segments": "error",
     "import/order": [
       "error",
       {
@@ -76,9 +74,6 @@
         "newlines-between": "always"
       }
     ],
-    "no-return-await": "off",
-    "no-unused-vars": "off",
-    "prefer-const": "off",
     "quotes": [
       "error",
       "single",
