@@ -1,6 +1,6 @@
 import { Client, Events } from 'discord.js';
 
-import BaseEvent from '../commands/base/BaseEvent';
+import BaseEvent from '../base/BaseEvent';
 
 class Ready extends BaseEvent {
   constructor() {
