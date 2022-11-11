@@ -5,4 +5,8 @@ export default abstract class BaseEvent {
   constructor(once: boolean) {
     this.once = once;
   }
+
+  public getEventName() {
+    return this.eventName;
+  }
 }

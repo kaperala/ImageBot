@@ -1,4 +1,5 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { RawApplicationCommandData } from 'discord.js/typings/rawDataTypes';
 import { Configuration, CreateImageRequestSizeEnum } from 'openai';
 
 import ImageCommand from '../src/commands/image';

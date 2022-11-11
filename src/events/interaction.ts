@@ -1,11 +1,11 @@
 import { ChatInputCommandInteraction, Events } from 'discord.js';
 
-import BaseEvent from '../commands/base/BaseEvent';
+import BaseEvent from '../base/BaseEvent';
 import { commandsMap } from '../utils/maps';
 
 class InteractionCreate extends BaseEvent {
   constructor() {
-    super(true);
+    super(false);
     this.eventName = Events.InteractionCreate;
   }
 

@@ -10,8 +10,8 @@ import {
   OpenAIApi
 } from 'openai';
 
+import BaseCommand from '../base/BaseCommand';
 import { GenerationConfig } from '../types/types';
-import BaseCommand from './base/BaseCommand';
 
 export const getBuilder = () => {
   const builder = new SlashCommandBuilder();
@@ -28,7 +28,7 @@ export const getBuilder = () => {
       option
         .setName('resolution')
         .setDescription(
-          'The resolution of the generated image(s). (default is 1024x1024)'
+          'The resolution of the generated image(s). (default is 256x256)'
         )
         .setRequired(false)
         .addChoices(
