@@ -26,7 +26,7 @@ To run this bot, you need to create an .env file that includes the needed enviro
 
 ## 🐬 Running with Docker
 
-Running ImageBot with Docker is very easy, you can do it with my [Docker image](https://hub.docker.com/repository/docker/kvllu/imagebot/). Note that you need to provide the environment variables with **-e** option or use your platform provider's tools to create them. 
+Running ImageBot with Docker is very easy, you can do it with my [Docker image](https://hub.docker.com/r/kvllu/imagebot). Note that you need to provide the environment variables with **-e** option or use your platform provider's tools to create them. 
 
 ```bash
 docker run -d \
