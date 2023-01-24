@@ -57,6 +57,12 @@ Install dependencies
   npm install
 ```
 
+Configure the .env file and deploy the commands to the Discord API
+
+```bash
+  npm run deploy-commands
+```
+
 Rename/create and configure the .env file and run the bot
 
 ```bash
